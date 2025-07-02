@@ -68,10 +68,16 @@ export class AlertScenariosComponent implements OnInit {
     console.log('pageModel.data:', this.pageModel.data);
     console.log('alert_id:', this.pageModel.data['alert_id']);
     const sviWindow = window as SviWindow;
-
+    const jobPath = this.childNode.typeAttributes?.['jobPath'];
+    if (!jobPath) {
+      console.error("Job Execution Path is not configured in control attributes.");
+      return;
+    }
+    console.log('1',jobPath);
     try {
-
-      await sviWindow.sas.vi.http.get("/SASJobExecution/?_program=/Public/alertScenarios&aid="+this.pageModel.data['alert_id'])
+      console.log('2',jobPath);
+      await sviWindow.sas.vi.http.get(`/SASJobExecution/?_program=${encodeURIComponent(jobPath)}&aid=${this.pageModel.data['alert_id']}`
+      )
         .then((response: HttpResponse<string>) => {
           console.log("Alert scenarios response:", response);
           

@@ -12,7 +12,14 @@ export const control = {
   },
   name: "alertScenarios",
   controlAttributes: {
-    attributes: {},
+    attributes: {
+      jobPath: {
+        displayName: { defaultText: "Job Execution Path" },
+        required: true,
+        type: "textInput"
+      }
+
+    },
     metadata: {
       renderAs: ControlType.WebComponent,
       states: {
